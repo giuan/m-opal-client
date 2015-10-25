@@ -1,3 +1,26 @@
 = m-opal-jquery
 
 A minimalist opal wrapper for jQuery
+
+=== Why?
+To have a simple, low-level access to jQuery.
+
+*Require opal >= 0.9* (use the _js_ interface to javascript)
+
+=== Getting started
+Copy the *.rb file in a directory of your project.
+
+[source, ruby]
+----
+# app/application.rb
+require 'opal'
+require 'jquery'
+require 'm-opal-jquery'
+
+JQ($document).ready ->() do
+  msg = JQ('#message')
+  msg.html = "Hello from m-opal-jquery"
+end
+# html
+# <div id="message"></div>
+----
