@@ -1,3 +1,5 @@
+require 'opal'
+
 $jquery = `$`
 
 def jquery(selector)
@@ -12,17 +14,14 @@ def opal?(value)
   !js?(value)
 end
 
-class JQ
-  include JavascriptProxy
-  extend JavascriptProxy::Helpers
-
+class JQ < Ox
   def initialize(selector)
     if opal?(selector) && selector.class ==  String
       selector = jquery(selector)
     else
       selector = jquery(selector) unless `selector instanceof $`
     end
-    @j = selector
+    super(selector)
   end
   # most used instance methods
   proxy_method :html
@@ -30,15 +29,16 @@ class JQ
   proxy_method :val
   proxy_method :val=, :val
   proxy_method :attr
+  proxy_method :css
+  # events
   proxy_method :on
   proxy_method :ready
-
   # class methods
   def self.now
     `$.now()`
   end
 end
 
-def JQ element
-  JQ.new element
+def JQ selector
+  JQ.new selector
 end

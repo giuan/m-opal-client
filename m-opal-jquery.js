@@ -4,7 +4,8 @@
   var OPAL_CONFIG = { method_missing: true, arity_check: false, freezing: true, tainting: true };
   var self = Opal.top, $scope = Opal, nil = Opal.nil, $breaker = Opal.breaker, $slice = Opal.slice, $gvars = Opal.gvars, $klass = Opal.klass;
 
-  Opal.add_stubs(['$!', '$js?', '$include', '$extend', '$opal?', '$==', '$class', '$jquery', '$proxy_method', '$new']);
+  Opal.add_stubs(['$require', '$!', '$js?', '$opal?', '$==', '$class', '$jquery', '$proxy_method', '$new']);
+  self.$require("opal");
   $gvars.jquery = $;
   Opal.defn(Opal.Object, '$jquery', function(selector) {
     var self = this;
@@ -25,22 +26,19 @@
     function $JQ(){};
     var self = $JQ = $klass($base, $super, 'JQ', $JQ);
 
-    var def = self.$$proto, $scope = self.$$scope;
+    var def = self.$$proto, $scope = self.$$scope, TMP_1;
 
-    self.$include($scope.get('JavascriptProxy'));
+    Opal.defn(self, '$initialize', TMP_1 = function(selector) {
+      var $a, $b, self = this, $iter = TMP_1.$$p, $yield = $iter || nil;
 
-    self.$extend((($scope.get('JavascriptProxy')).$$scope.get('Helpers')));
-
-    Opal.defn(self, '$initialize', function(selector) {
-      var $a, $b, self = this;
-
+      TMP_1.$$p = null;
       if ((($a = ($b = self['$opal?'](selector), $b !== false && $b !== nil ?selector.$class()['$==']($scope.get('String')) : $b)) !== nil && (!$a.$$is_boolean || $a == true))) {
         selector = self.$jquery(selector)
       } else if ((($a = selector instanceof $) !== nil && (!$a.$$is_boolean || $a == true))) {
         } else {
         selector = self.$jquery(selector)
       };
-      return self.j = selector;
+      return Opal.find_super_dispatcher(self, 'initialize', TMP_1, null).apply(self, [selector]);
     });
 
     self.$proxy_method("html");
@@ -62,10 +60,10 @@
 
       return $.now();
     }), nil) && 'now';
-  })($scope.base, null);
-  return (Opal.defn(Opal.Object, '$JQ', function(element) {
+  })($scope.base, $scope.get('Ox'));
+  return (Opal.defn(Opal.Object, '$JQ', function(selector) {
     var self = this;
 
-    return $scope.get('JQ').$new(element);
+    return $scope.get('JQ').$new(selector);
   }), nil) && 'JQ';
 })(Opal);
