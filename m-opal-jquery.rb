@@ -31,9 +31,8 @@ class JQ
   proxy_method :val=, :val
   proxy_method :attr
   proxy_method :on
-  def _on (events, callback)
-    @j.JS.on(events, callback)
-  end
+  proxy_method :ready
+
   # class methods
   def self.now
     `$.now()`
