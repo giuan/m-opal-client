@@ -1,4 +1,5 @@
 require 'opal'
+require 'js'
 
 module JavascriptProxy
   attr_reader :j
@@ -13,9 +14,13 @@ module JavascriptProxy
     @j.JS[prop] = value
   end
 
-  def js(method, *args)
+  def jsc(method, *args)
     m = @j.JS[method]
     m.JS.call(@j,*args)
+  end
+
+  def to_s
+    @j.JS.toString()
   end
 end
 
@@ -48,7 +53,8 @@ module JavascriptProxy::Helpers
   private :proxy_method, :proxy_attr_reader, :proxy_attr_accessor
 end
 
-class Ox
+# Opal Box
+class OBx
   include JavascriptProxy
   extend JavascriptProxy::Helpers
   def initialize obj
@@ -56,6 +62,6 @@ class Ox
   end
 end
 
-def Ox(obj)
-  Ox.new obj
+def OBx(obj)
+  OBx.new obj
 end
