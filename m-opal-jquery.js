@@ -51,6 +51,8 @@
 
     self.$proxy_method("attr");
 
+    self.$proxy_method("css");
+
     self.$proxy_method("on");
 
     self.$proxy_method("ready");
