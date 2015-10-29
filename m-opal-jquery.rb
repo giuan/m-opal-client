@@ -28,6 +28,7 @@ class JQ < OBx
   # events
   proxy_method :on
   proxy_method :ready
+  proxy_method :each
   # class methods
   def self.unbox
     `$`
@@ -35,7 +36,7 @@ class JQ < OBx
   def self.jquery(selector)
     `$(selector)`
   end
-def self.now
+  def self.now
     `$.now()`
   end
 end
