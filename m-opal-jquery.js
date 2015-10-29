@@ -51,6 +51,8 @@
 
     self.$proxy_method("ready");
 
+    self.$proxy_method("each");
+
     Opal.defs(self, '$unbox', function() {
       var self = this;
 

@@ -65,3 +65,24 @@ end
 def OBx(obj)
   OBx.new obj
 end
+
+# Opal Box with methods and properties (slow)
+class OBxAll < OBx
+  def method_missing(meth, *args)
+    meth = meth.chop() if meth.end_with?('=')
+    m = @j.JS[meth]
+    if !m
+      super.method_missing(meth, *args)
+    elsif `typeof m == 'function'`
+      m.JS.call(@j,*args)
+    elsif args.length > 0
+      @j.JS[meth] = args[0]
+    else
+      m
+    end
+  end
+end
+
+def OBxAll(obj)
+  OBxAll.new obj
+end
