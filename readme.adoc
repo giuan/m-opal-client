@@ -8,6 +8,7 @@ To have a simple, low-level access to jQuery.
 *Require opal >= 0.9* (use the _JS_ syntax )
 
 === Getting started
+*JQ* depends on *rbox* a light-weight alternative to native.
 The class *JQ* is a box around javascript object.
 To box an object `JQ.new('#anid')` or with the function `JQ('#anid')`.
 
