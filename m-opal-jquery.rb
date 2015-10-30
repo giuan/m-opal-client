@@ -8,7 +8,7 @@ def opal?(value)
   !js?(value)
 end
 
-class JQ < OBx
+class JQ < RBox
   def initialize(selector)
     if opal?(selector) && selector.class ==  String
       selector = JQ.jquery(selector)

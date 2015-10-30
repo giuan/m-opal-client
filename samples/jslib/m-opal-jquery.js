@@ -51,6 +51,8 @@
 
     self.$proxy_method("ready");
 
+    self.$proxy_method("each");
+
     Opal.defs(self, '$unbox', function() {
       var self = this;
 
@@ -68,7 +70,7 @@
 
       return $.now();
     }), nil) && 'now';
-  })($scope.base, $scope.get('OBx'));
+  })($scope.base, $scope.get('RBox'));
   return (Opal.defn(Opal.Object, '$JQ', function(selector) {
     var self = this;
 

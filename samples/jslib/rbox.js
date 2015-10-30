@@ -5,9 +5,12 @@
   function $rb_plus(lhs, rhs) {
     return (typeof(lhs) === 'number' && typeof(rhs) === 'number') ? lhs + rhs : lhs['$+'](rhs);
   }
+  function $rb_gt(lhs, rhs) {
+    return (typeof(lhs) === 'number' && typeof(rhs) === 'number') ? lhs > rhs : lhs['$>'](rhs);
+  }
   var self = Opal.top, $scope = Opal, nil = Opal.nil, $breaker = Opal.breaker, $slice = Opal.slice, $module = Opal.module, $klass = Opal.klass;
 
-  Opal.add_stubs(['$require', '$attr_reader', '$alias_method', '$remove_method', '$define_method', '$+', '$proxy_attr_reader', '$proxy_attr_writer', '$private', '$include', '$extend', '$new']);
+  Opal.add_stubs(['$require', '$attr_reader', '$alias_method', '$remove_method', '$define_method', '$+', '$proxy_attr_reader', '$proxy_attr_writer', '$private', '$include', '$extend', '$new', '$end_with?', '$chop', '$!', '$method_missing', '$>', '$length', '$[]']);
   self.$require("opal");
   self.$require("js");
   (function($base) {
@@ -115,8 +118,8 @@ if (value == null) value = nil;
     self.$private("proxy_method", "proxy_attr_reader", "proxy_attr_accessor");
   })($scope.get('JavascriptProxy'));
   (function($base, $super) {
-    function $OBx(){};
-    var self = $OBx = $klass($base, $super, 'OBx', $OBx);
+    function $RBox(){};
+    var self = $RBox = $klass($base, $super, 'RBox', $RBox);
 
     var def = self.$$proto, $scope = self.$$scope;
 
@@ -130,9 +133,39 @@ if (value == null) value = nil;
       return self.j = obj;
     }), nil) && 'initialize';
   })($scope.base, null);
-  return (Opal.defn(Opal.Object, '$OBx', function(obj) {
+  Opal.defn(Opal.Object, '$RBox', function(obj) {
     var self = this;
 
-    return $scope.get('OBx').$new(obj);
-  }), nil) && 'OBx';
+    return $scope.get('RBox').$new(obj);
+  });
+  return (function($base) {
+    var self = $module($base, 'ProxyMethodMissing');
+
+    var def = self.$$proto, $scope = self.$$scope, TMP_4;
+
+    Opal.defn(self, '$method_missing', TMP_4 = function(meth) {var $zuper = $slice.call(arguments, 0);
+      var $a, $b, self = this, $iter = TMP_4.$$p, $yield = $iter || nil, m = nil;
+      if (self.j == null) self.j = nil;
+
+      var array_size = arguments.length - 1;
+      if(array_size < 0) array_size = 0;
+      var args = new Array(array_size);
+      for(var arg_index = 0; arg_index < array_size; arg_index++) {
+        args[arg_index] = arguments[arg_index + 1];
+      }
+      TMP_4.$$p = null;
+      if ((($a = meth['$end_with?']("=")) !== nil && (!$a.$$is_boolean || $a == true))) {
+        meth = meth.$chop()};
+      m = self.j[meth];
+      if ((($a = m['$!']()) !== nil && (!$a.$$is_boolean || $a == true))) {
+        return ($a = Opal.find_super_dispatcher(self, 'method_missing', TMP_4, $iter).apply(self, $zuper)).$method_missing.apply($a, [meth].concat(Opal.to_a(args)))
+      } else if ((($b = typeof m == 'function') !== nil && (!$b.$$is_boolean || $b == true))) {
+        return ($b = m).call.apply($b, [self.j].concat(Opal.to_a(args)))
+      } else if ($rb_gt(args.$length(), 0)) {
+        return self.j[meth]=args['$[]'](0)
+        } else {
+        return m
+      };
+    })
+  })($scope.base);
 })(Opal);
