@@ -18,6 +18,10 @@ class JQ < RBox
     super(selector)
   end
 
+  # method that return a JQ object
+  def find(selector)
+    JQ(@j.JS.find(selector))
+  end
   # most used instance methods
   proxy_method :html
   proxy_method :html=, :html
@@ -29,6 +33,7 @@ class JQ < RBox
   proxy_method :on
   proxy_method :ready
   proxy_method :each
+
   # class methods
   def self.unbox
     `$`
@@ -36,6 +41,24 @@ class JQ < RBox
   def self.jquery(selector)
     `$(selector)`
   end
+  # Ajax
+  def self.ajax(url, settings=nil)
+    JqXHR.new(@.JS.ajax(url,settings))
+  end
+  def self.get(url, data=nil, success=nil, datatype=nil)
+    JqXHR.new(@.JS.get(url, data, success, datatype))
+  end
+  def self.getJSON(url, data=nil, success=nil)
+    JqXHR.new(@.JS.getJSON(url, data, success))
+  end
+  def self.getScript(url, success=nil)
+    JqXHR.new(@.JS.getScript(url, success))
+  end
+  def self.post(url, data=nil, success=nil, datatype=nil)
+    JqXHR.new(@.JS.post(url, data, success, datatype))
+  end
+
+
   def self.now
     `$.now()`
   end
@@ -43,4 +66,20 @@ end
 
 def JQ selector
   JQ.new selector
+end
+
+class JqXHR < RBox
+  proxy_method :done
+  proxy_method :fail
+  proxy_method :always
+end
+
+class Event < RBox
+  proxy_attr_reader :meta_key, :metaKey
+  proxy_attr_reader :page_x, :pageX
+  proxy_attr_reader :page_y, :pageY
+  proxy_method :prevent_default, :preventDefault
+  proxy_method :stop_propagation, :stopPropagation
+  proxy_attr_reader :target
+  proxy_attr_reader :which 
 end
