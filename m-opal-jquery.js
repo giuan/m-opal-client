@@ -75,16 +75,16 @@
     });
 
     Opal.defs(self, '$ajax', function(url, settings) {
-      var $a, self = this;
+      var self = this;
 
       if (settings == null) {
         settings = nil
       }
-      return $scope.get('JqXHR').$new((($a = Opal.cvars['@@jquery']) == null ? nil : $a).ajax(url, settings));
+      return $scope.get('JqXHR').$new($.ajax(url,settings));
     });
 
     Opal.defs(self, '$get', function(url, data, success, datatype) {
-      var $a, self = this;
+      var self = this;
 
       if (data == null) {
         data = nil
@@ -95,7 +95,7 @@
       if (datatype == null) {
         datatype = nil
       }
-      return $scope.get('JqXHR').$new((($a = Opal.cvars['@@jquery']) == null ? nil : $a).get(url, data, success, datatype));
+      return $scope.get('JqXHR').$new(($).get(url, data, success, datatype));
     });
 
     Opal.defs(self, '$getJSON', function(url, data, success) {

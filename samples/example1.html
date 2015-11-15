@@ -14,7 +14,7 @@
     <div id="message"></div>
     <input type="button" id="button" value="Click">
     <script type="text/ruby">
-    JQ($document).ready ->() do
+    JQ(`document`).ready ->() do
       msg = JQ('#message')
       msg.html = "Hello from m-opal-jquery"
       JQ('#button').on :click, ->(evt) do

@@ -43,19 +43,19 @@ class JQ < RBox
   end
   # Ajax
   def self.ajax(url, settings=nil)
-    JqXHR.new(@.JS.ajax(url,settings))
+    JqXHR.new(`$`.JS.ajax(url,settings)
   end
   def self.get(url, data=nil, success=nil, datatype=nil)
-    JqXHR.new(@.JS.get(url, data, success, datatype))
+    JqXHR.new(`$`.JS.get(url, data, success, datatype))
   end
   def self.getJSON(url, data=nil, success=nil)
-    JqXHR.new(@.JS.getJSON(url, data, success))
+    JqXHR.new(`$`.JS.getJSON(url, data, success))
   end
   def self.getScript(url, success=nil)
-    JqXHR.new(@.JS.getScript(url, success))
+    JqXHR.new(`$`.JS.getScript(url, success))
   end
   def self.post(url, data=nil, success=nil, datatype=nil)
-    JqXHR.new(@.JS.post(url, data, success, datatype))
+    JqXHR.new(`$`.JS.post(url, data, success, datatype))
   end
 
 
@@ -81,5 +81,5 @@ class Event < RBox
   proxy_method :prevent_default, :preventDefault
   proxy_method :stop_propagation, :stopPropagation
   proxy_attr_reader :target
-  proxy_attr_reader :which 
+  proxy_attr_reader :which
 end
