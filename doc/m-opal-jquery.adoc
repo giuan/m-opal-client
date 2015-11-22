@@ -1,3 +1,19 @@
+= m-opal-jquery
+
+A minimalist opal wrapper for jQuery
+
+=== Why?
+To have a simple, low-level access to jQuery.
+
+*Require opal >= 0.9* (use the _JS_ syntax )
+
+=== Getting started
+*JQ* depends on *rbox* a light-weight alternative to native.
+The class *JQ* is a box around javascript object.
+To box an object `JQ.new('#anid')` or with the function `JQ('#anid')`.
+
+[source, html]
+----
 <!DOCTYPE html>
 <html>
   <head>
@@ -14,7 +30,7 @@
     <div id="message"></div>
     <input type="button" id="button" value="Click">
     <script type="text/ruby">
-    JQ(`document`).ready ->() do
+    JQ($document).ready ->() do
       msg = JQ('#message')
       msg.html = "Hello from m-opal-jquery"
       JQ('#button').on :click, ->(evt) do
@@ -24,3 +40,12 @@
     </script>
   </body>
 </html>
+----
+The JQ class has some predefined methods (val, html, css, ...). +
+If you a needs method undefined in JQ, you have tree ways: +
+`c = JQ('selector')`
+
+* `c.jsc(:methodName, params)`
+* `c.unbox.JS.methodName(params)`
+* define the method in class JQ
+ `class JQ; proxy_method :methodName; end`

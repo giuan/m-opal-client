@@ -1,0 +1,43 @@
+= Opal ruby box for javascript object
+A minimalist opal wrapper for javascript object (alternative to native)
+
+=== Why?
+To have a simple, light-weight alternative to native.
+
+*Require opal >= 0.9* (use the _JS_ syntax )
+
+=== Getting started
+
+
+[source, html]
+----
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="jslib/opal.js" type="text/javascript"></script>
+    <script src="jslib/opal-parser.js" type="text/javascript"></script>
+    <script src="jslib/rbox.js" type="text/javascript"></script>
+  </head>
+  <script type="text/ruby">
+  </script>
+  <body>
+    <div id="message"></div>
+    <input type="button" id="button" value="Click">
+    <script type="text/ruby">
+    class Element < RBox
+      proxy_attr_accessor :innerHTML
+    end
+    ready = ->() do
+       msg = Element.new(`document`.JS.getElementById('message'))
+       msg.innerHTML = "Hello from rbox"
+       button = `document`.JS.getElementById('button')
+       button.JS.addEventListener :click, ->(evt) do
+          evt = RBox(evt)
+          msg.innerHTML += "<br>" + evt['target'].JS['value']
+       end
+    end
+    `document.body`.JS['onload'] = ready
+    </script>
+----

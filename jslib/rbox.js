@@ -10,7 +10,7 @@
   }
   var self = Opal.top, $scope = Opal, nil = Opal.nil, $breaker = Opal.breaker, $slice = Opal.slice, $module = Opal.module, $klass = Opal.klass;
 
-  Opal.add_stubs(['$require', '$attr_reader', '$alias_method', '$remove_method', '$define_method', '$+', '$proxy_attr_reader', '$proxy_attr_writer', '$RBox', '$private', '$include', '$extend', '$new', '$end_with?', '$chop', '$!', '$method_missing', '$>', '$length', '$[]']);
+  Opal.add_stubs(['$require', '$attr_reader', '$alias_method', '$remove_method', '$define_method', '$+', '$proxy_attr_reader', '$proxy_attr_writer', '$is_a?', '$new', '$private', '$include', '$extend', '$end_with?', '$chop', '$!', '$method_missing', '$>', '$length', '$[]']);
   self.$require("opal");
   self.$require("js");
   (function($base) {
@@ -115,31 +115,43 @@ if (value == null) value = nil;
       return self.$proxy_attr_writer(attr, js_attr);
     });
 
-    Opal.defn(self, '$proxy_method_rbox', function(method, js_method) {
+    Opal.defn(self, '$proxy_method_rbox', function(method, js_method, box_class) {
       var $a, $b, TMP_4, self = this;
 
       if (js_method == null) {
         js_method = nil
       }
+      if (box_class == null) {
+        box_class = $scope.get('RBox')
+      }
+      if ((($a = (($b = js_method !== false && js_method !== nil) ? js_method['$is_a?']($scope.get('Proc')) : js_method)) !== nil && (!$a.$$is_boolean || $a == true))) {
+        box_class = js_method;
+        js_method = nil;};
       js_method = ((($a = js_method) !== false && $a !== nil) ? $a : method);
       return ($a = ($b = self).$define_method, $a.$$p = (TMP_4 = function(args){var self = TMP_4.$$s || this, $a, m = nil;
         if (self.j == null) self.j = nil;
 args = $slice.call(arguments, 0);
       m = self.j[js_method];
-        return self.$RBox(($a = m).call.apply($a, [self.j].concat(Opal.to_a(args))));}, TMP_4.$$s = self, TMP_4), $a).call($b, method);
+        return box_class.$new(($a = m).call.apply($a, [self.j].concat(Opal.to_a(args))));}, TMP_4.$$s = self, TMP_4), $a).call($b, method);
     });
 
-    Opal.defn(self, '$proxy_attr_reader_rbox', function(attr, js_attr) {
+    Opal.defn(self, '$proxy_attr_reader_rbox', function(attr, js_attr, box_class) {
       var $a, $b, TMP_5, self = this;
 
       if (js_attr == null) {
         js_attr = nil
       }
+      if (box_class == null) {
+        box_class = $scope.get('RBox')
+      }
+      if ((($a = (($b = js_attr !== false && js_attr !== nil) ? js_attr['$is_a?']($scope.get('Proc')) : js_attr)) !== nil && (!$a.$$is_boolean || $a == true))) {
+        box_class = js_attr;
+        js_attr = nil;};
       js_attr = ((($a = js_attr) !== false && $a !== nil) ? $a : attr);
       return ($a = ($b = self).$define_method, $a.$$p = (TMP_5 = function(){var self = TMP_5.$$s || this;
         if (self.j == null) self.j = nil;
 
-      return self.$RBox(self.j[js_attr])}, TMP_5.$$s = self, TMP_5), $a).call($b, attr);
+      return box_class.$new(self.j[js_attr])}, TMP_5.$$s = self, TMP_5), $a).call($b, attr);
     });
 
     self.$private("proxy_method", "proxy_attr_reader", "proxy_attr_writer", "proxy_attr_accessor");
@@ -162,13 +174,10 @@ args = $slice.call(arguments, 0);
       return self.j = obj;
     }), nil) && 'initialize';
   })($scope.base, null);
-  Opal.defn(Opal.Object, '$RBox', function(obj, a_class) {
+  Opal.defn(Opal.Object, '$RBox', function(obj) {
     var self = this;
 
-    if (a_class == null) {
-      a_class = $scope.get('RBox')
-    }
-    return a_class.$new(obj);
+    return $scope.get('RBox').$new(obj);
   });
   return (function($base) {
     var self = $module($base, 'ProxyMethodMissing');

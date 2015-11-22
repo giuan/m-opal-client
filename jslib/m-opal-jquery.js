@@ -23,8 +23,6 @@
     var def = self.$$proto, $scope = self.$$scope, TMP_1;
 
     def.j = nil;
-    (Opal.cvars['@@jquery'] = $);
-
     Opal.defn(self, '$initialize', TMP_1 = function(selector) {
       var $a, $b, self = this, $iter = TMP_1.$$p, $yield = $iter || nil;
 
@@ -52,6 +50,10 @@
 
     self.$proxy_method("val=", "val");
 
+    self.$proxy_method("text");
+
+    self.$proxy_method("text=", "text");
+
     self.$proxy_method("attr");
 
     self.$proxy_method("css");
@@ -61,6 +63,10 @@
     self.$proxy_method("ready");
 
     self.$proxy_method("each");
+
+    self.$proxy_method("serialize");
+
+    self.$proxy_method("serialize_array", "serializeArray");
 
     Opal.defs(self, '$unbox', function() {
       var self = this;
@@ -74,13 +80,19 @@
       return $(selector);
     });
 
+    Opal.defs(self, '$each', function(collection, fn) {
+      var self = this;
+
+      return $.each(collection, fn);
+    });
+
     Opal.defs(self, '$ajax', function(url, settings) {
       var self = this;
 
       if (settings == null) {
         settings = nil
       }
-      return $scope.get('JqXHR').$new($.ajax(url,settings));
+      return $scope.get('JqXHR').$new(($).ajax(url, settings));
     });
 
     Opal.defs(self, '$get', function(url, data, success, datatype) {
@@ -99,7 +111,7 @@
     });
 
     Opal.defs(self, '$getJSON', function(url, data, success) {
-      var $a, self = this;
+      var self = this;
 
       if (data == null) {
         data = nil
@@ -107,20 +119,20 @@
       if (success == null) {
         success = nil
       }
-      return $scope.get('JqXHR').$new((($a = Opal.cvars['@@jquery']) == null ? nil : $a).getJSON(url, data, success));
+      return $scope.get('JqXHR').$new(($).getJSON(url, data, success));
     });
 
     Opal.defs(self, '$getScript', function(url, success) {
-      var $a, self = this;
+      var self = this;
 
       if (success == null) {
         success = nil
       }
-      return $scope.get('JqXHR').$new((($a = Opal.cvars['@@jquery']) == null ? nil : $a).getScript(url, success));
+      return $scope.get('JqXHR').$new(($).getScript(url, success));
     });
 
     Opal.defs(self, '$post', function(url, data, success, datatype) {
-      var $a, self = this;
+      var self = this;
 
       if (data == null) {
         data = nil
@@ -131,7 +143,7 @@
       if (datatype == null) {
         datatype = nil
       }
-      return $scope.get('JqXHR').$new((($a = Opal.cvars['@@jquery']) == null ? nil : $a).post(url, data, success, datatype));
+      return $scope.get('JqXHR').$new(($).post(url, data, success, datatype));
     });
 
     return (Opal.defs(self, '$now', function() {

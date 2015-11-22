@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="../jslib/jquery-2.1.4.min.js" type="text/javascript"></script>
+    <script src="../jslib/opal.js" type="text/javascript"></script>
+    <script src="../jslib/opal-parser.js" type="text/javascript"></script>
+    <script src="../jslib/rbox.js" type="text/javascript"></script>
+    <script src="../jslib/m-opal-jquery.js" type="text/javascript"></script>
+  </head>
+
+  <body>
+    <form>
+  <select name="single">
+    <option>Single</option>
+    <option>Single2</option>
+  </select>
+
+  <br>
+  <select name="multiple" multiple="multiple">
+    <option selected="selected">Multiple</option>
+    <option>Multiple2</option>
+    <option selected="selected">Multiple3</option>
+  </select>
+
+  <br>
+  <input type="checkbox" name="check" value="check1" id="ch1">
+  <label for="ch1">check1</label>
+  <input type="checkbox" name="check" value="check2" checked="checked" id="ch2">
+  <label for="ch2">check2</label>
+
+  <br>
+  <input type="radio" name="radio" value="radio1" checked="checked" id="r1">
+  <label for="r1">radio1</label>
+  <input type="radio" name="radio" value="radio2" id="r2">
+  <label for="r2">radio2</label>
+  <textarea name="textarea" rows="8" cols="40"></textarea>
+
+</form>
+
+<p> <tt id="results"></tt></p>
+<p> <tt id="resultsarray"></tt></p>
+    <div id="message"></div>
+    <input type="button" id="button" value="Click">
+    <script type="text/ruby">
+    def form_to_json(id)
+      params = JQ( id ).serialize_array
+      h = {}
+      params.each do |e|
+        name = e.JS['name']
+        if (v = h[name])
+          if v.is_a? Array
+            h[name] << e.JS['value']
+          else
+            h[name] = [v, e.JS['value']]
+          end
+        else
+          h[name] = e.JS['value']
+        end
+      end
+      h
+    end
+    show_values = ->() do
+        str = JQ( "form" ).serialize
+        JQ( "#results" ).text = str
+        params = form_to_json( "form" )
+        rsa = JQ( "#resultsarray" )
+        rsa.text = params.to_s
+    end
+    JQ(`document`).ready ->() do
+      msg = JQ('#message')
+      msg.html = "Hello from m-opal-jquery"
+      JQ('#button').on :click, ->(evt) do
+        msg.html += "<br>" + evt.JS['target'].JS['value']
+      end
+      JQ( "input, select, textarea" ).on( "change", show_values )
+    end
+    </script>
+  </body>
+</html>

@@ -27,12 +27,18 @@ class JQ < RBox
   proxy_method :html=, :html
   proxy_method :val
   proxy_method :val=, :val
+  proxy_method :text
+  proxy_method :text=, :text
   proxy_method :attr
   proxy_method :css
   # events
   proxy_method :on
   proxy_method :ready
   proxy_method :each
+
+  # form
+  proxy_method :serialize
+  proxy_method :serialize_array, :serializeArray
 
   # class methods
   def self.unbox
@@ -41,9 +47,12 @@ class JQ < RBox
   def self.jquery(selector)
     `$(selector)`
   end
+  def self.each collection, fn
+    `$.each(collection, fn)`
+  end
   # Ajax
   def self.ajax(url, settings=nil)
-    JqXHR.new(`$`.JS.ajax(url,settings)
+    JqXHR.new(`$`.JS.ajax(url,settings))
   end
   def self.get(url, data=nil, success=nil, datatype=nil)
     JqXHR.new(`$`.JS.get(url, data, success, datatype))
@@ -57,6 +66,7 @@ class JQ < RBox
   def self.post(url, data=nil, success=nil, datatype=nil)
     JqXHR.new(`$`.JS.post(url, data, success, datatype))
   end
+
 
 
   def self.now
