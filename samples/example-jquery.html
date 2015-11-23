@@ -18,7 +18,7 @@
   </select>
 
   <br>
-  <select name="multiple" multiple="multiple">
+  <select name="multiple[]" multiple="multiple">
     <option selected="selected">Multiple</option>
     <option>Multiple2</option>
     <option selected="selected">Multiple3</option>
@@ -26,16 +26,17 @@
 
   <br>
   <input type="checkbox" name="check" value="check1" id="ch1">
-  <label for="ch1">check1</label>
+  <label for="ch1">Check1</label>
   <input type="checkbox" name="check" value="check2" checked="checked" id="ch2">
-  <label for="ch2">check2</label>
+  <label for="ch2">Check2</label>
+  <input type="button" id="checkall" value="Check all">
 
   <br>
   <input type="radio" name="radio" value="radio1" checked="checked" id="r1">
   <label for="r1">radio1</label>
   <input type="radio" name="radio" value="radio2" id="r2">
   <label for="r2">radio2</label>
-  <textarea name="textarea" rows="8" cols="40"></textarea>
+  <textarea name="a.textarea" rows="8" cols="40"></textarea>
 
 </form>
 
@@ -75,6 +76,9 @@
         msg.html += "<br>" + evt.JS['target'].JS['value']
       end
       JQ( "input, select, textarea" ).on( "change", show_values )
+      JQ('#checkall').on 'click', ->() do
+        JQ("form [name=check]").prop('checked',true )       
+      end
     end
     </script>
   </body>

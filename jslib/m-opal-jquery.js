@@ -56,6 +56,8 @@
 
     self.$proxy_method("attr");
 
+    self.$proxy_method("prop");
+
     self.$proxy_method("css");
 
     self.$proxy_method("on");

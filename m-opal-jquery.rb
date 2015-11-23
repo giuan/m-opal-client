@@ -30,6 +30,7 @@ class JQ < RBox
   proxy_method :text
   proxy_method :text=, :text
   proxy_method :attr
+  proxy_method :prop
   proxy_method :css
   # events
   proxy_method :on
