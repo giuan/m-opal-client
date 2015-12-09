@@ -4,7 +4,7 @@
   var OPAL_CONFIG = { method_missing: true, arity_check: false, freezing: true, tainting: true };
   var self = Opal.top, $scope = Opal, nil = Opal.nil, $breaker = Opal.breaker, $slice = Opal.slice, $klass = Opal.klass;
 
-  Opal.add_stubs(['$require', '$!', '$js?', '$opal?', '$==', '$class', '$jquery', '$JQ', '$proxy_method', '$new', '$proxy_attr_reader']);
+  Opal.add_stubs(['$require', '$!', '$js?', '$opal?', '$==', '$class', '$jquery', '$JQ', '$proxy_method', '$proxy_attr_reader', '$new']);
   self.$require("opal");
   Opal.defn(Opal.Object, '$js?', function(value) {
     var self = this;
@@ -42,6 +42,12 @@
       return self.$JQ(self.j.find(selector));
     });
 
+    Opal.defn(self, '$filter', function(selector) {
+      var self = this;
+
+      return self.$JQ(self.j.filter(selector));
+    });
+
     self.$proxy_method("html");
 
     self.$proxy_method("html=", "html");
@@ -60,15 +66,23 @@
 
     self.$proxy_method("css");
 
+    self.$proxy_method("each");
+
+    Opal.defn(self, '$[]', function(i) {
+      var self = this;
+
+      return self.j[i];
+    });
+
     self.$proxy_method("on");
 
     self.$proxy_method("ready");
 
-    self.$proxy_method("each");
-
     self.$proxy_method("serialize");
 
     self.$proxy_method("serialize_array", "serializeArray");
+
+    self.$proxy_attr_reader("length");
 
     Opal.defs(self, '$unbox', function() {
       var self = this;
@@ -171,7 +185,7 @@
 
     return self.$proxy_method("always");
   })($scope.base, $scope.get('RBox'));
-  return (function($base, $super) {
+  (function($base, $super) {
     function $Event(){};
     var self = $Event = $klass($base, $super, 'Event', $Event);
 
@@ -190,5 +204,13 @@
     self.$proxy_attr_reader("target");
 
     return self.$proxy_attr_reader("which");
+  })($scope.base, $scope.get('RBox'));
+  return (function($base, $super) {
+    function $Element(){};
+    var self = $Element = $klass($base, $super, 'Element', $Element);
+
+    var def = self.$$proto, $scope = self.$$scope;
+
+    return nil;
   })($scope.base, $scope.get('RBox'));
 })(Opal);

@@ -22,6 +22,10 @@ class JQ < RBox
   def find(selector)
     JQ(@j.JS.find(selector))
   end
+  def filter(selector)
+    JQ(@j.JS.filter(selector))
+  end
+
   # most used instance methods
   proxy_method :html
   proxy_method :html=, :html
@@ -32,14 +36,21 @@ class JQ < RBox
   proxy_method :attr
   proxy_method :prop
   proxy_method :css
+  proxy_method :each
+  def [](i)
+    @j.JS[i]
+  end
+
   # events
   proxy_method :on
   proxy_method :ready
-  proxy_method :each
 
   # form
   proxy_method :serialize
   proxy_method :serialize_array, :serializeArray
+
+  # properties
+  proxy_attr_reader :length
 
   # class methods
   def self.unbox
@@ -93,4 +104,7 @@ class Event < RBox
   proxy_method :stop_propagation, :stopPropagation
   proxy_attr_reader :target
   proxy_attr_reader :which
+end
+
+class Element < RBox
 end
