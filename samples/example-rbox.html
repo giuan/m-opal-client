@@ -27,7 +27,7 @@
     class << $console
       proxy_method :log
     end
-    
+
     class Event < RBox
       proxy_attr_reader_rbox :target
     end
@@ -42,6 +42,8 @@
        $console.log("Hello from console")
     end
     `document.body`.JS['onload'] = ready
+    $con = `console`
+    $con$.log("Ciaooo")
   </script>
   </body>
 </html>
