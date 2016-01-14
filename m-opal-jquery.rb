@@ -63,8 +63,8 @@ class JQ < RBox
     `$.each(collection, fn)`
   end
   # Ajax
-  def self.ajax(url, settings=nil)
-    JqXHR.new(`$`.JS.ajax(url,settings))
+  def self.ajax(settings=nil)
+    JqXHR.new(`$`.JS.ajax(settings))
   end
   def self.get(url, data=nil, success=nil, datatype=nil)
     JqXHR.new(`$`.JS.get(url, data, success, datatype))
