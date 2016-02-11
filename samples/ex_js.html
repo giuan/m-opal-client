@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="../jslib/opal.js" type="text/javascript"></script>
+    <script src="../jslib/opal-parser.js" type="text/javascript"></script>
+    <script src="../jslib/rbox.js" type="text/javascript"></script>
+    <script src="../jslib/js.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <div id="message"></div>
+    <script type="text/ruby">
+      require 'js'
+      $window = `window`
+      `document.getElementById('message')`.JS['innerHTML'] = $window.JS['location'].JS['href']
+
+      #`document.body`.JS['onload'] = ready
+  </script>
+  </body>
+</html>
